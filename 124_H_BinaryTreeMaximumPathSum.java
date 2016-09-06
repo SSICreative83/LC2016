@@ -25,8 +25,8 @@ public class Solution {
         if(left > 0)    sum += left;
         if(right > 0)   sum += right;
         
-        max = Math.max(max, sum);
-        return Math.max(left, right) > 0 ? Math.max(left, right) + root.val : root.val;
+        max = Math.max(max, sum);   //update two side path sum, for return value
+        return Math.max(left, right) > 0 ? Math.max(left, right) + root.val : root.val; //return one side path sum for recursion
         
     }
 }
