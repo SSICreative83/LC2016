@@ -1,5 +1,6 @@
 public class Solution {
-    public List<String> letterCombinations(String digits) {
+    //Recursive, DFS
+    public List<String> letterCombinations1(String digits) {
         List<String> res = new ArrayList<>();
         if(digits == null || digits.length() == 0) return res;
         String[] arr = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
@@ -30,6 +31,37 @@ public class Solution {
                 res.add(curChar + curString);
             }
         }
+        return res;
+    }
+    
+    //Iterative
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<>();
+        if(digits == null || digits.length() == 0) return res;
+        String[] map = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        
+        
+        for(int i = 0; i < digits.length(); i++) {
+            List<String> tmp = new ArrayList<>();
+            String cur = map[digits.charAt(i) - '0'];
+            
+            if(res.size() == 0) {
+                for(int j = 0; j < cur.length(); j++) {
+                    String ccur = cur.substring(j, j + 1);
+                    tmp.add(ccur);
+                }
+            } else {
+                for(int j = 0; j < res.size(); j++) {
+                    String exist = res.get(j);
+                    for(int k = 0; k < cur.length(); k++) {
+                        tmp.add(exist + cur.substring(k, k + 1));
+                    }
+                }
+            }
+            
+            res = tmp;
+        }
+
         return res;
     }
 }
