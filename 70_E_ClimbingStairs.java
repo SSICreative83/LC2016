@@ -13,7 +13,7 @@ public class Solution {
         return climbStairs(n - 1) + climbStairs(n - 2);
     }
     
-    public int climbStairs(int n) {
+    public int climbStairs2(int n) {
         if(n == 0) {
             return 0;
         }
@@ -33,5 +33,20 @@ public class Solution {
             res[i] = res[i - 1] + res[i - 2];
         }
         return res[n];
+    }
+    
+    public int climbStairs(int n) {
+        if(n == 0)  return 0;
+        if(n == 1)  return 1;
+        if(n == 2)  return 2;
+        int p = 1, q = 2;
+        for(int i = 3; i <= n; i++) {
+            if(i % 2 == 1) {
+                p += q;
+            } else {
+                q += p;
+            }
+        }
+        return n % 2 == 0 ? q : p;
     }
 }
