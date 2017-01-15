@@ -15,11 +15,11 @@ public class Solution extends Reader4 {
         char[] buffer = new char[4];
         
         while(!eof && bytesRead < n) {
-            int sz = read4(buffer);
-            if(sz < 4) {
+            int canRead = read4(buffer);
+            if(canRead < 4) {
                 eof = true;
             }
-            int curBytesRead = Math.min(n - bytesRead, sz);
+            int curBytesRead = Math.min(n - bytesRead, canRead);    //in case needToRead is smaller than canRead
             for(int i = 0; i < curBytesRead; i++) {
                 buf[bytesRead + i] = buffer[i];
             }
