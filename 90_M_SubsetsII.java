@@ -27,47 +27,50 @@ public class Solution {
     }
     
     //Iterative
-    public List<List<Integer>> subsetsWithDup(int[] nums) {
-	    if (nums == null)
-		    return null;
+     public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+	    if (nums == null || nums.length == 0)
+		    return res;
  
 	    Arrays.sort(nums);
- 
-	    List<List<Integer>> result = new ArrayList<>();
-	    List<List<Integer>> prev = new ArrayList<>();
- 
-	    for (int i = nums.length-1; i >= 0; i--) {
- 
-		    //get existing sets
-		    if (i == nums.length - 1 || nums[i] != nums[i + 1] || prev.size() == 0) {
-			    prev = new ArrayList<>();
-			    for (int j = 0; j < result.size(); j++) {
-				    prev.add(new ArrayList<Integer>(result.get(j)));
-			    }
-		    }
- 
-		    //add current number to each element of the set
-		    for (List<Integer> temp : prev) {
-			    temp.add(0, nums[i]);
-		    }
- 
-		    //add each single number as a set, only if current element is different with previous
-		    if (i == nums.length - 1 || nums[i] != nums[i + 1]) {
-			    List<Integer> temp = new ArrayList<Integer>();
-			    temp.add(nums[i]);
-			    prev.add(temp);
-	    	}
- 
-		    //add all set created in this iteration
-		    for (List<Integer> temp : prev) {
-			    result.add(new ArrayList<Integer>(temp));
-		    }
-	    }
- 
-	    //add empty set
-	    result.add(new ArrayList<Integer>());
- 
-	    return result;     
+
+        List<List<Integer>> prev = new ArrayList<>();
+
+        
+        for(int i = 0; i < nums.length; i++) {
+            int cur = nums[i];
+            
+            //add result set to prev
+            if(i == 0 || nums[i] != nums[i - 1] || prev.size() == 0) {
+                prev = new ArrayList<>();
+                for(List<Integer> in : res) {
+                    prev.add(new ArrayList<Integer>(in));
+                }
+            }
+            
+            //add current number to each element in prev
+            for(List<Integer> list : prev) {
+                list.add(cur);
+            }
+            
+            //add current single number as a set to prev
+            if(i == 0 || nums[i] != nums[i - 1]) {
+                List<Integer> tmp = new ArrayList<>();
+                tmp.add(nums[i]);
+                prev.add(tmp);
+            }
+            
+            //add each set to result
+            for(List<Integer> list : prev) {
+                res.add(new ArrayList<Integer>(list));
+            }
+            
+        }
+        
+        List<Integer> empty = new ArrayList<>();
+	    res.add(empty);        
+
+        return res;  
     }
     
 }
