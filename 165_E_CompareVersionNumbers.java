@@ -1,6 +1,6 @@
 public class Solution {
     public int compareVersion(String version1, String version2) {
-        String[] v1 = version1.split("\\.");
+        String[] v1 = version1.split("\\.");    //notice the split function will need regex "\\.", not "."
         String[] v2 = version2.split("\\.");
         
         int len1 = v1.length;
