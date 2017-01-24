@@ -29,4 +29,38 @@ public class Solution {
         if(val > 26 || val < 1) return false;
         return true;
     }
+    
+    //Recursion, time limit exceeded
+    public int numDecodings(String s) {
+        if(s == null || s.length() == 0)    return 0;
+        if(s.length() == 1) return isValid(s) ? 1 : 0;
+        int res = 0;
+        if(s.length() == 2) {
+            if(isValid(s.substring(0, 1)) && isValid(s.substring(1, 2))) {
+                res += 1;
+            }
+            if(isValid(s)) {
+                res += 1;
+            }
+            return res;
+        }
+        
+        if(isValid(s.substring(0, 1))) {
+            res += numDecodings(s.substring(1));
+        }
+        if(isValid(s.substring(0, 2))) {
+            res += numDecodings(s.substring(2));
+        }
+        
+        return res;
+    }
+    
+    public boolean isValid(String s) {
+        if(s == null || s.length() == 0)    return false;
+        if(s.length() > 2)  return false;
+        if(s.charAt(0) == '0')  return false;
+        
+        Integer in = Integer.parseInt(s);
+        return in >= 1 && in <= 26;
+    }
 }
