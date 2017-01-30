@@ -8,8 +8,8 @@
  * }
  */
 public class Solution {
-    //Binary Search
-    public int kthSmallest(TreeNode root, int k) {
+    //Recursive
+    public int kthSmallest1(TreeNode root, int k) {
         if(root == null)    return 0;
         int left = countNode(root.left);
         if(k == left + 1) {
@@ -26,49 +26,32 @@ public class Solution {
         return 1 + countNode(root.left) + countNode(root.right);
     }
     
-    // DFS inorder traversal, recursive
-    // better keep these two variables in a wrapper class
-    private static int number = 0;
-    private static int count = 0;
-
+    //Iterative
     public int kthSmallest(TreeNode root, int k) {
-        count = k;
-        helper(root);
-        return number;
-    }
-    
-    public void helper(TreeNode n) {
-        if (n.left != null) helper(n.left);
-        count--;
-        if (count == 0) {
-            number = n.val;
-            return;
-        }
-        if (n.right != null) helper(n.right);
-    }
-    
-    // DFS inorder traversal, iterative
-    public int kthSmallest(TreeNode root, int k) {
-        Stack<TreeNode> st = new Stack<>();
+        if(root == null)    return -1;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode p = root;
         
-        while (root != null) {
-            st.push(root);
-            root = root.left;
+        while(p != null) {
+            stack.push(p);
+            p = p.left;
         }
-            
-        while (k != 0) {
-            TreeNode n = st.pop();
+        
+        while(!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
             k--;
-            if (k == 0) return n.val;
-            TreeNode right = n.right;
-            while (right != null) {
-                st.push(right);
-                right = right.left;
+            if(k == 0) {
+                //current node is kth smallest
+                return cur.val;
+            }
+            
+            TreeNode r = cur.right;
+            while(r != null) {
+                stack.push(r);
+                r = r.left;
             }
         }
         
-        return -1; // never hit if k is valid
-  }
-    
+        return -1;
+    }
 }
-
