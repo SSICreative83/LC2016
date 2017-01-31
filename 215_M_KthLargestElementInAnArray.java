@@ -17,10 +17,10 @@ class Solution {
         int position = partition(nums, l, r);
         if (position + 1 == k) {
             return nums[position];
-        } else if (position + 1 < k) {
-            return helper(nums, position + 1, r, k);
-        }  else {
+        } else if(position + 1 > k) {   //kth smallest is on left
             return helper(nums, l, position - 1, k);
+        } else {    //kth smallest is on right
+            return helper(nums, position + 1, r, k);
         }
     }
     public int partition(int[] nums, int l, int r) {
