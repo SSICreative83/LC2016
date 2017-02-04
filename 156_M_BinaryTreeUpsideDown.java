@@ -8,7 +8,7 @@
  * }
  */
 public class Solution {
-    public TreeNode upsideDownBinaryTree(TreeNode root) {
+    public TreeNode upsideDownBinaryTree1(TreeNode root) {
         return helper(root, null);
     }
     
@@ -20,6 +20,20 @@ public class Solution {
         TreeNode newRoot = helper(p.left, p);
         p.left = parent == null ? null : parent.right;
         p.right = parent;
+        
+        return newRoot;
+    }
+    
+    //recursion
+    public TreeNode upsideDownBinaryTree(TreeNode root) {
+        if(root == null || root.left == null)    return root;
+        
+        TreeNode newRoot = upsideDownBinaryTree(root.left);
+        
+        root.left.left = root.right;
+        root.left.right = root;
+        root.left = null;
+        root.right = null;
         
         return newRoot;
     }
