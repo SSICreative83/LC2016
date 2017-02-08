@@ -30,18 +30,27 @@ public class Solution {
         if (root == null) return 0;
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
-        TreeNode rightMost = root;
-        int depth = 1;
-        while (!q.isEmpty()) {
-            TreeNode node = q.poll();
-            if (node.left == null && node.right == null) break; //not understand?
-            if (node.left != null) q.add(node.left);
-            if (node.right != null) q.add(node.right);
-            if (node == rightMost) {
-                depth++;
-                rightMost = (node.right != null) ? node.right : node.left;
+        int level = 1;
+        
+        while(!q.isEmpty()) {
+            Queue<TreeNode> tmp = new LinkedList<>();
+            
+            while(!q.isEmpty()) {
+                TreeNode cur = q.poll();
+                if(cur.left == null && cur.right == null) {
+                    return level;
+                }
+                if(cur.left != null) {
+                    tmp.offer(cur.left);
+                }
+                if(cur.right != null) {
+                    tmp.offer(cur.right);
+                }
             }
+            
+            q = tmp;
+            level++;
         }
-        return depth;
+        return level;
     }
 }
