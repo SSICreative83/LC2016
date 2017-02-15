@@ -1,5 +1,4 @@
 public class Solution {
-    // time limit exceeded
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> res = new ArrayList<>();
         if(n <= 0)  return res;
@@ -44,9 +43,8 @@ public class Solution {
     public boolean isValid(int n, int[] loc, int cur) {
         
         for(int i = 0; i < cur; i++){  
-            if(loc[i] == loc[cur] || Math.abs(loc[i] - loc[cur]) == (cur - i)) {    //angle line will attack
+            if(loc[i] == loc[cur] || Math.abs(loc[i] - loc[cur]) == (cur - i))  
                 return false;  
-            }
         }  
         return true; 
         
