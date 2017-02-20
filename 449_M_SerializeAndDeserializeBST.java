@@ -7,6 +7,8 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+//copied from https://discuss.leetcode.com/topic/66651/java-preorder-queue-solution
 public class Codec {
 
     private static final String SEP = ",";
