@@ -30,7 +30,7 @@ public class Solution {
         }
     }
     
-    //Iterative
+    //Recursion 2
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         if(nums == null || nums.length == 0)    return res;
@@ -54,7 +54,7 @@ public class Solution {
                 }
             }
             
-            List<List<Integer>> cres = permute(nnums);
+            List<List<Integer>> cres = permute(nnums);  //recursive call to get result for remaining elements
             for(List<Integer> clist : cres) {
                 clist.add(cur);
                 res.add(clist);
@@ -62,4 +62,32 @@ public class Solution {
         }
         return res;
     }
+    
+    //Iterative
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(nums == null || nums.length == 0)    return res;
+        
+        List<Integer> first = new ArrayList<>();
+        first.add(nums[0]);
+        res.add(first);
+        for(int i = 1; i < nums.length; i++) {
+            int cur = nums[i];
+            int curSize = res.size();
+            List<List<Integer>> newRes = new ArrayList<>();
+            
+            for(int j = 0; j < curSize; j++) {
+                List<Integer> tmpList = res.get(j);
+                int tmpSize = tmpList.size();
+                for(int k = 0; k <= tmpSize; k++) {
+                    List<Integer> ntmpList = new ArrayList<>(tmpList);
+                    ntmpList.add(k, cur);
+                    newRes.add(ntmpList);
+                }
+            }
+            res = newRes;
+        }
+        
+        return res;
+    }    
 }
