@@ -73,4 +73,33 @@ public class Solution {
         return res;  
     }
     
+	//more clear Iterative
+	public List<List<Integer>> subsetsWithDup(int[] nums) {
+          	List<List<Integer>> res = new ArrayList<>();
+	    	if (nums == null || nums.length == 0)
+		    	return res;
+ 
+	    	Arrays.sort(nums);
+	    	List<Integer> empty = new ArrayList<>();
+	    	res.add(empty);
+	    
+	    	int begin = 0;
+        	for(int i = 0; i < nums.length; i++) {
+            		int cur = nums[i];
+            		int curSize = res.size();
+            
+            		if(i == 0 || nums[i] != nums[i - 1]) {
+                		begin = 0;
+            		}
+
+            		for(int j = begin; j < curSize; j++) {
+               	 		List<Integer> tmp = new ArrayList<>(res.get(j));
+                		tmp.add(cur);
+                		res.add(tmp);
+                		begin = curSize;
+            		}          
+        	}
+
+        return res;  
+    	}
 }
