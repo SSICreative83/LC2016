@@ -1,4 +1,30 @@
 public class Solution {
+    //better DFS
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<>();
+        if(digits == null || digits.length() == 0) return res;
+        String[] map = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};  
+        
+        dfs(res, "", map, digits, 0);
+        return res;
+    }
+    
+    public void dfs(List<String> res, String tmp, String[] map, String digits, int start) {
+        
+        if(start == digits.length()) {
+            res.add(tmp);
+            return;
+        }
+        
+        int curDigit = digits.charAt(start) - '0'; //2
+        String curChars = map[curDigit];    //"abc"
+            
+        for(int j = 0; j < curChars.length(); j++) {
+            String ntmp = tmp + curChars.substring(j, j + 1);
+            dfs(res, ntmp, map, digits, start + 1);
+        }
+            
+    }
     //Recursive, DFS
     public List<String> letterCombinations1(String digits) {
         List<String> res = new ArrayList<>();
