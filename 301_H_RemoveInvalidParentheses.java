@@ -24,7 +24,7 @@ public class Solution {
           found = true;
         }
       
-        if (found) continue;
+        if (found) continue;    //TODO: why continue need to be outside of if statement?
       
         // generate all possible states
         for (int i = 0; i < s.length(); i++) {
