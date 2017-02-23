@@ -17,4 +17,21 @@ public class Solution {
         return i + 1;
         
     }
+    
+    //done by myself
+    public int removeDuplicates(int[] nums) {
+        if(nums == null || nums.length == 0) {
+            return 0;
+        }
+        int i = 0, j = 0;
+        for(; j < nums.length; ) {
+            if(nums[i] == nums[j]) {
+                j++;
+            } else {
+                nums[i + 1] = nums[j];
+                i++;
+            }
+        }
+        return i + 1;
+    }
 }
