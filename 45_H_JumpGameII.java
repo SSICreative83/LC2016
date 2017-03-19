@@ -1,6 +1,7 @@
 public class Solution {
     
-    // DP, O(n^2), time limit exceeded
+    // DP, O(n^2), time limit exceeded (Accepted in LintCode)
+    // The optimal solution is greedy
     public int jump(int[] A) {
         if(A == null || A.length == 0) {
             return 0;
