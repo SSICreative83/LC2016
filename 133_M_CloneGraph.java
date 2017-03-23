@@ -15,7 +15,7 @@ public class Solution {
         return nodeCopy;
     }
     
-    private UndirectedGraphNode DFS(UndirectedGraphNode node, HashMap<UndirectedGraphNode, UndirectedGraphNode> map) {
+    private UndirectedGraphNode DFS1(UndirectedGraphNode node, HashMap<UndirectedGraphNode, UndirectedGraphNode> map) {
         if(map.containsKey(node)) {
             return map.get(node);
         }
@@ -26,6 +26,28 @@ public class Solution {
             nodeCopy.neighbors.add(DFS(neighbor, map));
         }
         return nodeCopy;
+    }
+    //self
+    private UndirectedGraphNode DFS(UndirectedGraphNode node, HashMap<UndirectedGraphNode, UndirectedGraphNode> map) {
+        UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+        if(map.containsKey(node)) {
+            newNode = map.get(node);
+        } else {
+            map.put(node, newNode);
+        }
+        
+        for(UndirectedGraphNode n : node.neighbors) {
+            if(map.containsKey(n)) {
+                newNode.neighbors.add(map.get(n));
+            } else {
+                UndirectedGraphNode newNeib = new UndirectedGraphNode(n.label);
+                newNode.neighbors.add(newNeib);
+                map.put(n, newNeib);
+                DFS(n, map);
+            }
+        }
+        
+        return newNode;
     }
     
     //BFS
