@@ -1,6 +1,25 @@
 public class Solution {
-  //Need to do 1 pass way
-
+  //Need to do 1 pass way, self
+    public void sortColors(int[] A) {
+        if(A == null || A.length == 0) {
+            return;
+        }
+        
+        int i = 0, j = A.length - 1, k = 0;
+        while(k <= j) {
+            if(A[k] == 1) {
+                k++;
+            } else if(A[k] == 2) {
+                swap(A, k, j);
+                j--;
+            } else {
+                swap(A, k, i);
+                i++;
+                k++;
+            }
+        }
+    }
+  
   //self, 2 pass, move 0 to front, then sort 1 and 2
     public void sortColors(int[] A) {
         int len = A.length;
