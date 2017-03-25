@@ -1,5 +1,44 @@
 public class Solution {
     
+    //Iterative
+    public String countAndSay(int n) {
+        if(n <= 0) return "";
+        if(n == 1) return "1";
+        
+        String result = "1";
+        while(n > 1) {
+            n--;
+            
+            char[] arr = result.toCharArray();
+            int count = 0; 
+            char num = '1'; 
+            String nresult = "";
+            
+            for(int i = 0; i < arr.length; i++) {
+                if(i == 0) {
+                    count = 1;
+                    num = arr[i];
+                    continue;
+                }
+                if(arr[i] == num) {
+                    count++;
+                } else {
+                    nresult += count;
+                    nresult += num;
+                    num = arr[i];
+                    count = 1;
+                }
+            }
+            
+            nresult += count;
+            nresult += num;
+            
+            result = nresult;            
+        }
+        
+        return result;
+    }
+    
     //Recursive 
     public String countAndSay(int n) {
         if(n <= 0) return "";
