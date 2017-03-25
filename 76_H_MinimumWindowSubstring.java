@@ -1,4 +1,38 @@
 public class Solution {
+  //self, for every ending position, find the shortest starting position, which makes it valid
+     public String minWindow(String s, String t) {
+        if(s.length() == 0 || t.length() == 0) {
+            return "";
+        }
+        
+        int[] sourcehash = new int[256];
+        int[] targethash = new int[256];
+        for(int i = 0; i < t.length(); i++) {
+            targethash[t.charAt(i)]++;
+        }
+        
+        int ret = Integer.MAX_VALUE;
+        String retStr = "";
+        for(int start = 0, end = 0; start < s.length() && end < s.length(); end++) {
+            sourcehash[s.charAt(end)]++;
+            if(!isValid(sourcehash, targethash)) {  
+                continue;
+            }
+            while(start < s.length() && start <= end && isValid(sourcehash, targethash)) {
+                int curLen = end - start + 1;
+                if(curLen < ret) {
+                    ret = Math.min(ret, end - start + 1);
+                    retStr = s.substring(start, end + 1);                    
+                }
+
+                sourcehash[s.charAt(start)]--;
+                start++;
+            } 
+        }
+        
+        return retStr;
+    }
+  
   //Two pointers
     public String minWindow(String s, String t) {
         if(s.length() == 0 || t.length() == 0) {
