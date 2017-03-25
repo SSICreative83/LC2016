@@ -24,4 +24,24 @@ public class Solution {
         }
         
     }
+    
+    // 2nd way of dfs, more straightforward logic
+    public void dfs1(List<String> res, String tmp, int num_left, int num_right) {
+        if(num_left == 0 && num_right == 0) {
+            res.add(tmp);
+            return;
+        }
+        if(num_left > num_right) {  //not valid case
+            return;
+        }
+        if(num_left > 0) {
+            String ntmp1 = tmp + "(";
+            dfs(res, ntmp1, num_left - 1, num_right);
+        }
+        if(num_right > 0) {
+            String ntmp2 = tmp + ")";
+            dfs(res, ntmp2, num_left, num_right - 1);
+        }
+        
+    }
 }
