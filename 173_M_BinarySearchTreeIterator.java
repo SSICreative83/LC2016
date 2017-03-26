@@ -8,6 +8,42 @@
  * }
  */
 
+// stack solution, next() is not always O(1), but average should be O(1)
+public class BSTIterator {
+
+    Stack<TreeNode> stack = new Stack<>();
+    public BSTIterator(TreeNode root) {
+        pushLeft(root);
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return !stack.isEmpty();
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        TreeNode cur = stack.pop();
+        if(cur.right != null) {
+            TreeNode p = cur.right;
+            while(p != null) {
+                stack.push(p);
+                p = p.left;
+            }
+        }
+        return cur.val;
+    }
+    
+    private void pushLeft(TreeNode root) {
+        TreeNode p = root;
+        while(p != null) {
+            stack.push(p);
+            p = p.left;
+        }
+    }
+}
+
+// below solution doesn't meet O(h) memory requirement
 public class BSTIterator {
 
     Queue<TreeNode> treeQ = new LinkedList<>();
