@@ -10,7 +10,33 @@ public class Solution {
         return A[0];
     }
     
-  //DP
+    //DP top to bottom: self 
+    public int minimumTotal(int[][] triangle) {
+        // write your code here
+        int level = triangle.length;
+        int[][] sum = new int[level][level];
+        sum[0][0] = triangle[0][0];
+        for(int i = 1; i < level; i++) {
+            for(int j = 0; j <= i; j++) {
+                if(j == 0) {
+                    sum[i][j] = sum[i - 1][j] + triangle[i][j];
+                    continue;
+                }
+                if(j == i) {
+                    sum[i][j] = sum[i - 1][j - 1] + triangle[i][j];
+                    continue;
+                } 
+                sum[i][j] = triangle[i][j] + Math.min(sum[i - 1][j - 1], sum[i - 1][j]);
+            }
+        }
+        int res = Integer.MAX_VALUE;
+        for(int i : sum[level - 1]) {
+            res = Math.min(res, i);
+        }
+        return res;
+    }
+    
+  //DP: same as above
     public int minimumTotal1(List<List<Integer>> triangle) {
         if(triangle == null || triangle.size() == 0) return 0;
         int[][] dp = new int[triangle.size()][triangle.size()];
